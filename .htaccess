@@ -1,0 +1,24 @@
+RewriteEngine On
+
+# Some hosts may require you to use the `RewriteBase` directive.
+# If you need to use the `RewriteBase` directive, it should be the
+# absolute physical path to the directory that contains this htaccess file.
+#
+#RewriteBase /
+RewriteBase /content-store-cloud-client/
+
+# Need this to handle // in rewrite, see https://serverfault.com/a/1135006
+RewriteCond %{THE_REQUEST} \s[^?]*//
+
+#-----------------------------------------------------------------------------------------
+
+# Mimic hash URI https://github.com/hash-uri/hash-uri 
+RewriteRule ^hash:/sha1/(.*)\+$ ?sha1=$1&info [QSA,L]
+RewriteRule ^hash:/sha1/(.*)$ ?sha1=$1 [QSA,L]
+
+# Just use SHA1 prefix
+RewriteRule ^sha1/(.*)\+$ ?sha1=$1&info [QSA,L]
+RewriteRule ^sha1/(.*)$ ?sha1=$1 [QSA,L]
+
+# http://localhost/content-store-cloud-client/hash://sha1/a555bd961c5651133e4cbed4392cd9103028804e
+# http://localhost/content-store-cloud-client/sha1/a555bd961c5651133e4cbed4392cd9103028804e
