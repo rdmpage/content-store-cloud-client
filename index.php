@@ -100,7 +100,8 @@ function main()
 				}
 				else
 				{
-					// fetch PDF
+					// fetch PDF and stream so that Cloudflare will cache it and
+					// hypothes.is can use it
 					$path = $content_url;
 					$path = str_replace(' ','%20',$path);
 					$fname = tempnam(sys_get_temp_dir(), 'pdf_');
@@ -145,7 +146,9 @@ body {
 </head>
 <body>
 <h1>Content Store</h1>
-<p>Hash-based content store.</p>
+<p>Hash-based content store. Currently stores PDFs and makes them addressable using the
+<a href="https://en.wikipedia.org/wiki/SHA-1">SHA-1</a> hash of the PDF file.</p>
+
 <h2>Examples</h2>
 
 <h3>Clean URI</h3>
@@ -165,6 +168,20 @@ body {
 <li><a href="./hash://sha1/a555bd961c5651133e4cbed4392cd9103028804e">hash://sha1/a555bd961c5651133e4cbed4392cd9103028804e</a></li>
 <li><a href="./hash://sha1/1867f8bcb8a9e39974e1206de5cec638f71df78e">hash://sha1/1867f8bcb8a9e39974e1206de5cec638f71df78e</a></li>
 <li><a href="./hash://sha1/308befb39be8b30d0e22fa4e7c3b6ca07583c326">hash://sha1/308befb39be8b30d0e22fa4e7c3b6ca07583c326</a></li>
+</ul>
+
+<h3>View and annotate in Hypothes.is</h3>
+
+<p><a href="https://web.hypothes.is">Hypothesis</a> provide a way to <a href="https://github.com/hypothesis/pdf.js-hypothes.is">view and annotate PDFs using PDF.js</a>.
+The links below use a local copy of PDF.js + Hypothesis. You can also use Hypothesis by appending the URL for a PDF to <a href="https://via.hypothes.is">Via</a>, 
+for example <a href="https://via.hypothes.is/https://content.bionames.org/sha1/b99afa9a11a75ef3d019d635e5c004ebf6852050">https://via.hypothes.is/https://content.bionames.org/sha1/b99afa9a11a75ef3d019d635e5c004ebf6852050</a>.
+</p>
+
+<ul>
+<li><a href="pdf.js-hypothes.is/viewer/web/viewer.html?file=../../../sha1/b99afa9a11a75ef3d019d635e5c004ebf6852050">sha1/b99afa9a11a75ef3d019d635e5c004ebf6852050</a></li>
+<li><a href="pdf.js-hypothes.is/viewer/web/viewer.html?file=../../../sha1/a555bd961c5651133e4cbed4392cd9103028804e">sha1/a555bd961c5651133e4cbed4392cd9103028804e</a></li>
+<li><a href="pdf.js-hypothes.is/viewer/web/viewer.html?file=../../../sha1/1867f8bcb8a9e39974e1206de5cec638f71df78e">sha1/1867f8bcb8a9e39974e1206de5cec638f71df78e</a></li>
+<li><a href="pdf.js-hypothes.is/viewer/web/viewer.html?file=../../../sha1/308befb39be8b30d0e22fa4e7c3b6ca07583c326">sha1/308befb39be8b30d0e22fa4e7c3b6ca07583c326</a></li>
 </ul>
 
 
