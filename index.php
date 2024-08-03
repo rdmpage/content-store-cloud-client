@@ -41,7 +41,7 @@ function download_file($path,$fname){
 			header('HTTP/1.1 410 Gone');
 			header('X-Robots-Tag: none');
 			header('X-Gone-Reason: Hostname not in DNS or blocked by policy');
-			echo 'Error 410: Server could parse the ?url= that you were looking for "' . $path . '", because the hostname of the origin is unresolvable (DNS) or blocked by policy.';
+			echo 'Error 410: Server could not parse the ?url= that you were looking for "' . $path . '", because the hostname of the origin is unresolvable (DNS) or blocked by policy.';
 			echo 'Error: $error';
 			die;
 		}
@@ -91,6 +91,8 @@ function main()
 			else
 			{
 				// URL to content itself
+				
+				// Assumes we know what the file extension is, will need to change this
 				$content_url = $downloadUrl . '/file/' . $config['bucket'] . '/' . $content_filepath . '.pdf';		
 				
 				if (0)
@@ -99,12 +101,12 @@ function main()
 					header("Location: $content_url");				
 				}
 				else
-				{
-					// fetch PDF and stream so that Cloudflare will cache it and
+				{				
+					// fetch content and stream it so that Cloudflare will cache it and
 					// hypothes.is can use it
 					$path = $content_url;
 					$path = str_replace(' ','%20',$path);
-					$fname = tempnam(sys_get_temp_dir(), 'pdf_');
+					$fname = tempnam(sys_get_temp_dir(), 'content_');
 					$curl_result = download_file($path,$fname);
 					if($curl_result[0] === false){
 						header("HTTP/1.0 404 Not Found");
@@ -114,8 +116,13 @@ function main()
 					
 					//header('Expires: '.gmdate("D, d M Y H:i:s", (time()+2678400)).' GMT'); //31 days
 					//header('Cache-Control: max-age=2678400'); //31 days
+					
+					// MIME type of content
+					$finfo = finfo_open(FILEINFO_MIME_TYPE); // return mime type ala mimetype extension
+					$mime_type = finfo_file($finfo, $fname);
+					finfo_close($finfo);					
 				
-					header('Content-Type: application/pdf');	
+					header('Content-Type: ' . $mime_type);	
 					header('Content-Length: ' . filesize($fname));
 				
 					ob_start();
