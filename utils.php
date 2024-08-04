@@ -1,6 +1,37 @@
 <?php
 
 //----------------------------------------------------------------------------------------
+function get($url, $format = '')
+{
+	
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, $url);
+	curl_setopt($ch, CURLOPT_HEADER, 0);
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+	
+	if ($format != '')
+	{
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Accept: " . $format));	
+	}
+	
+	$response = curl_exec($ch);
+	if($response == FALSE) 
+	{
+		$errorText = curl_error($ch);
+		curl_close($ch);
+		die($errorText);
+	}
+	
+	$info = curl_getinfo($ch);
+	$http_code = $info['http_code'];
+	
+	curl_close($ch);
+	
+	return $response;
+}
+
+//----------------------------------------------------------------------------------------
 // http://stackoverflow.com/questions/247678/how-does-mediawiki-compose-the-image-paths
 function hash_to_path_array($hash)
 {
