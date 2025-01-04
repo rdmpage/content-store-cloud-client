@@ -165,6 +165,7 @@ body {
 <li><a href="sha1/308befb39be8b30d0e22fa4e7c3b6ca07583c326">sha1/308befb39be8b30d0e22fa4e7c3b6ca07583c326</a></li>
 </ul>
 
+
 <h3>URLs written as hash URIs</h3>
 
 <p>See <a href="https://github.com/hash-uri/hash-uri">Hash URI Specification (Initial Draft)</a> for a definition of hash URIs.</p>
@@ -191,13 +192,24 @@ for example <a href="https://via.hypothes.is/https://content.bionames.org/sha1/b
 </ul>
 
 
+<h3>Hypothes.is annotations on PDFs are (mostly) independent of where PDF is stored</h3>
+
+<p>Annotations on PDF at original location, and same PDF in content store.</p>
+
+
+<ul>
+<li><a href="https://dialnet.unirioja.es/descarga/articulo/9138278.pdf" target="_new">PDF at original location https://via.hypothes.is/https://dialnet.unirioja.es/descarga/articulo/9138278.pdf</li>
+<li><a href="https://via.hypothes.is/https://dialnet.unirioja.es/descarga/articulo/9138278.pdf" target="_new">PDF at original location viewed using via.hypothes.is</li>
+<li><a href="pdf.js-hypothes.is/viewer/web/viewer.html?file=../../../sha1/f91760d398ca2ddf49e92b06f7fa911c281e8400" target="_new">PDF in content store viewed using PDF.js + Hypothesis</a></li>
+</ul>
+
 
 <h3>Images</h3>
 
-<table>
-<tr><th>SHA1</th><th>Image</th></tr>
-<tr><td><a href="sha1/ae1fa7fbb9ccd8e810e81bb88895f40434d44871">ae1fa7fbb9ccd8e810e81bb88895f40434d44871</a></td><td><img height="200" src="sha1/ae1fa7fbb9ccd8e810e81bb88895f40434d44871"></td></tr>
-</table>
+<dl>
+  <dt><a href="sha1/3135c0bc7c9c3e689d20c02fac582a05e52e82a3">3135c0bc7c9c3e689d20c02fac582a05e52e82a3</a></dt>
+  <dd><img style="border:1px solid #EEE" height="200" src="sha1/3135c0bc7c9c3e689d20c02fac582a05e52e82a3"></dd>
+</dl>
 
 </body>
 </html>
