@@ -106,9 +106,22 @@ function main()
 			}
 			else
 			{
-				// URL to content itself
-
-				$content_url = $downloadUrl . '/file/' . $config['bucket'] . '/' . $content_filepath . '.' . mime2ext($content_info->mimetype);
+				// URL to content itself (or thumbnail)
+				
+				$mimetype = '';
+				
+				$content_url = $downloadUrl . '/file/' . $config['bucket'] . '/' . $content_filepath;
+				
+				if (isset($_GET['thumbnail']))
+				{
+					$content_url .= '-thumbnail.webp';
+					$mimetype = 'image/webp';
+				}
+				else
+				{
+					$mimetype = mime2ext($content_info->mimetype);
+					$content_url .= '.' . $mimetype;
+				}
 
 				// fetch content and stream it so that Cloudflare will cache it and
 				// hypothes.is can use it
@@ -122,7 +135,7 @@ function main()
 					die;
 				}
 			
-				header('Content-Type: ' . $content_info->mimetype);	
+				header('Content-Type: ' . $mimetype);	
 				header('Content-Length: ' . filesize($fname));
 			
 				ob_start();

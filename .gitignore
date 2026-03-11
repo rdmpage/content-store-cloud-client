@@ -1,3 +1,7 @@
 /vendor/
 .DS_Store
 env.php
+lookup.db-shm
+lookup.db-wal
+*.tsv
+*.db
