@@ -106,8 +106,7 @@ function main()
 			}
 			else
 			{
-				// URL to content itself (or thumbnail)
-				
+				// URL to content itself (or thumbnail)				
 				$mimetype = '';
 				
 				$content_url = $downloadUrl . '/file/' . $config['bucket'] . '/' . $content_filepath;
@@ -137,6 +136,9 @@ function main()
 			
 				header('Content-Type: ' . $mimetype);	
 				header('Content-Length: ' . filesize($fname));
+				
+				// Canonical link
+				header('Link: <' . $config['web'] . '/sha1/' . $sha1 . '>; rel="canonical"');
 			
 				ob_start();
 				readfile($fname);
