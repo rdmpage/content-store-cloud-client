@@ -137,8 +137,8 @@ function main()
 				header('Content-Type: ' . $mimetype);	
 				header('Content-Length: ' . filesize($fname));
 				
-				// Canonical link
-				header('Link: <' . $config['web'] . '/sha1/' . $sha1 . '>; rel="canonical"');
+				// Canonical link (assumes site is hosted at root of domain)
+				header('Link: <' . 'https://' . $_SERVER['HTTP_HOST'] . '/sha1/' . $sha1 . '>; rel="canonical"');
 			
 				ob_start();
 				readfile($fname);
